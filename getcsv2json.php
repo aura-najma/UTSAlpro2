@@ -16,10 +16,10 @@ function csvToJson($csvUrl) {
     $jsonArray = [];
 
     foreach ($csvData as $row) {
-        $jsonArrayItem = array[];
+        $jsonArrayItem = array();
         for ($i) {
             $jsonArrayItem[$headers[$i]] = $row[$i];
-        };
+        }
         $jsonArray[] = $jsonArrayItem;
     }
 
