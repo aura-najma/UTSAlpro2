@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Praktikum M6 Aura</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background-color: #ffff;
+      margin: 5;
+      padding: 2;
+    }
+
+    h2 {
+      margin-top: 10px;
+      color: #553b08;
+    }
+
+    p {
+      color: #553b08;
+    }
+
+    form {
+      margin-top: 2px;
+    }
+
+    label {
+      display: block;
+      color: #553b08;
+    }
+
+    input[type="url"] {
+      width: 30%;
+      padding: 3px;
+      margin-bottom: 5px;
+      border: 2px solid #553b08;
+      border-radius: 12px;
+    }
+
+    input[type="button"] {
+      background-color: #75420e;
+      color: #fff;
+      border: none;
+      padding: 10px 10px;
+      cursor: pointer;
+      border-radius: 13px;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    input[type="button"]:hover {
+      background-color: #75420e;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px auto;
+      background-color: #fff;
+      box-shadow: 0 2px 4px #553b08;
+    }
+
+    th {
+      background-color: #e9e5cd;
+      color: #553b08;
+      padding: 10px;
+      text-align: left;
+      border-bottom: 2px solid #75420e;
+      border-right: 1px solid #75420e;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #75420e;
+      border-right: 1px solid #75420e;
+    }
+
+    tr:hover {
+      background-color: #bfb998;
+    }
+
+    #table-container {
+      display: none;
+    }
+  </style>
+
+</head>
+<body>
+  <h2>Selamat Datang!</h2>
+  <p>Kamu bisa memasukkan URL yang kamu inginkan di kolom di bawah ini</p>
+  <form>
+    <label for="url">URL:</label><br>
+    <input type="url" id="url" name="url" value=""><br>
+    <input type="button" value="Submit" id="submitBtn" onclick="fetchData()">
+  </form>
+  <div id="table-container">
+    <table id="data-table">
+    </table>
+  </div>
+
+
+  <script>
+    function fetchData() {
+      const urlInput = document.getElementById('url').value;
+      const tableContainer = document.getElementById('table-container');
+      const dataTable = document.getElementById('data-table');
+
+      // Buat objek AJAX
+      const xhr = new XMLHttpRequest();
+      
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+
+          dataTable.innerHTML = '';
+
+          const headerRow = document.createElement('tr');
+          for (const key in data[0]) {
+            if (data[0].hasOwnProperty(key)) {
+              const headerCell = document.createElement('th');
+              headerCell.textContent = key;
+              headerRow.appendChild(headerCell);
+            }
+          }
+          dataTable.appendChild(headerRow);
+
+          data.forEach(function(item) {
+            const dataRow = document.createElement('tr');
+            for (const key in item) {
+              if (item.hasOwnProperty(key)) {
+                const dataCell = document.createElement('td');
+                dataCell.textContent = item[key];
+                dataRow.appendChild(dataCell);
+              }
+            }
+            dataTable.appendChild(dataRow);
+          });
+
+          tableContainer.style.display = 'block';
+        }
+      };
+
+      xhr.open('GET', urlInput, true);
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
