@@ -16,8 +16,8 @@ function csvToJson($csvUrl) {
     $jsonArray = [];
 
     foreach ($csvData as $row) {
-        $jsonArrayItem = array();
-        for ($i); {
+        $jsonArrayItem = array[];
+        for ($i) {
             $jsonArrayItem[$headers[$i]] = $row[$i];
         }
         $jsonArray[] = $jsonArrayItem;
@@ -26,7 +26,7 @@ function csvToJson($csvUrl) {
     return json_encode($jsonArray);
 }
 
-$csvUrl = 'https://alpro2aura.alwaysdata.net/UTSAlpro2/datapribadi.csv';
+$csvUrl = 'https://testingalpro.alwaysdata.net/api/coffee.csv';
 $jsonData = csvToJson($csvUrl);
 
 // Set the content type to JSON
