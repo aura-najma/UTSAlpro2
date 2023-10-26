@@ -24,7 +24,7 @@ function csvToJson($csvUrl) {
     )
 
     return json_encode($jsonArray);
-}
+}}
 
 $csvUrl = 'https://alpro2aura.alwaysdata.net/UTSAlpro2/datapribadi.csv';
 $jsonData = csvToJson($csvUrl);
