@@ -21,7 +21,7 @@ function csvToJson($csvUrl) {
             $jsonArrayItem[$headers[$i]] = $row[$i]
         };
         $jsonArray[] = $jsonArrayItem;
-    })
+    )
 
     return json_encode($jsonArray);
 }
