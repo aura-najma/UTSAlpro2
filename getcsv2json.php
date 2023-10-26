@@ -22,6 +22,7 @@ function csvToJson($csvUrl) {
         };
         $jsonArray[] = $jsonArrayItem;
     )
+    }
 
     return json_encode($jsonArray);
 }
