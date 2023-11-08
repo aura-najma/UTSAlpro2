@@ -146,6 +146,7 @@
       const emailInput = document.getElementById('email').value;
       const email2Input = document.getElementById('email2').value;
       const profesiInput = document.getElementById('profesi').value;
+      
       const urlInput = document.getElementById('url').value;
       const tableContainer = document.getElementById('table-container');
       const dataTable = document.getElementById('data-table');
@@ -154,8 +155,26 @@
       const searchInput = document.getElementById('search').value;
 
       try {
-        const response = await fetch(`${urlInput}`);
-        const data = await response.json();
+        // Lakukan permintaan HTTP untuk mengirim data ke praktikumM9_input.php
+        const response = await fetch('praktikumM9_input.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: idInput,
+            f_name: f_nameInput,
+            l_name: l_nameInput,
+            email: emailInput,
+            email2: email2Input,
+            profesi: profesiInput,
+          }),
+        });
+        const result = await response.json();
+
+        // Lanjutkan dengan mengambil dan menampilkan data dari URL setelah menambahkan data
+        const urlResponse = await fetch(`${urlInput}`);
+        const data = await urlResponse.json();
 
         dataTable.innerHTML = '';
 
@@ -225,22 +244,7 @@
 
     // Fungsi untuk menambahkan data
     function addData() {
-      const idInput = document.getElementById('id').value;
-      const f_nameInput = document.getElementById('f_name').value;
-      const l_nameInput = document.getElementById('l_name').value;
-      const emailInput = document.getElementById('email').value;
-      const email2Input = document.getElementById('email2').value;
-      const profesiInput = document.getElementById('profesi').value;
-      // Anda dapat melakukan sesuatu dengan data yang baru ditambahkan di sini
-      // Misalnya, kirim data ke server atau lakukan operasi lainnya
-      console.log('Data yang ditambahkan:', {
-        id: idInput,
-        f_name: f_nameInput,
-        l_name: l_nameInput,
-        email: emailInput,
-        email2: email2Input,
-        profesi: profesiInput,
-      });
+      fetchData(1); // Tambah data dan muat ulang halaman saat tombol "Tambah Data" ditekan
     }
   </script>
 </body>
