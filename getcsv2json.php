@@ -17,14 +17,14 @@ function csvToJson($csvUrl) {
 
     foreach ($csvData as $row) {
         $jsonArrayItem = array();
-        for ($i {
-            $jsonArrayItem[$headers[$i]] = $row[$i]
-        };
+        for ($i = 0; $i < count($headers); $i++) {
+            $jsonArrayItem[$headers[$i]] = $row[$i];
+        }
         $jsonArray[] = $jsonArrayItem;
-        )
+    }
 
     return json_encode($jsonArray);
-}}
+}
 
 $csvUrl = 'https://alpro2aura.alwaysdata.net/UTSAlpro2/datapribadi.csv';
 $jsonData = csvToJson($csvUrl);
