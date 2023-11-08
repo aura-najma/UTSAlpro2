@@ -16,12 +16,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Menambahkan data ke file CSV
     $result = file_put_contents($csvFile, $data, FILE_APPEND);
 
-    if ($result !== false) {
-        echo "Data berhasil ditambahkan ke file CSV.";
-    } else {
-        echo "Gagal menambahkan data ke file CSV.";
-    }
-} else {
-    echo "Akses ke halaman ini tidak diizinkan.";
-}
-?>
