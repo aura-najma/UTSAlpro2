@@ -1,8 +1,8 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
-    $f_name = $_POST['f_name'];
-    $l_name = $_POST['l_name'];
+    $f_name = $_POST['F_name'];
+    $l_name = $_POST['L_name'];
     $email = $_POST['email'];
     $email2 = $_POST['email2'];
     $profesi = $_POST['profesi'];
