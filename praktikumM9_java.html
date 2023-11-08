@@ -30,7 +30,14 @@
       color: #553b08;
     }
 
-    input[type="url"],
+    input[type="url"] {
+      width: 30%;
+      padding: 3px;
+      margin-bottom: 5px;
+      border: 2px solid #553b08;
+      border-radius: 12px;
+    }
+
     input[type="text"] {
       width: 30%;
       padding: 3px;
@@ -93,15 +100,15 @@
   <h2>Selamat Datang!</h2>
   <p>Kamu bisa memasukkan URL yang kamu inginkan di kolom di bawah ini</p>
   <form>
-    <label for="url">URL:</label>
+    <label for="url">URL:</label><br>
     <input type="url" id="url" name="url" value=""><br>
-    <label for="search">Search:</label>
+    <label for="search">Search:</label><br>
     <input type="text" id="search" name="search" value=""><br>
     <input type="button" value="Submit" id="submitBtn" onclick="fetchData(1)">
     <input type="button" value="Search" id="searchBtn" onclick="searchData()">
   </form>
 
-  <form action="praktikumM9_submitalt.php" method="post">
+  <form>
     <label for="id">ID:</label>
     <input type="text" id="id" name="id" required><br>
     <label for="F_name">First Name:</label>
@@ -114,7 +121,7 @@
     <input type="text" id="email2" name="email2" required><br>
     <label for="profesi">Profesi:</label>
     <input type="text" id="profesi" name="profesi" required><br>
-    <input type="button" value="Tambah Data" onclick="submitData()">
+    <input type="button" value="Kirim" id="dataSubmitBtn">
   </form>
 
   <div id="table-container">
@@ -125,129 +132,83 @@
   </div>
 
   <script>
-    let currentPage = 1;
-    const itemsPerPage = 25;
-
-    async function fetchData(page) {
-      const urlInput = document.getElementById('url').value;
+    document.addEventListener('DOMContentLoaded', function () {
+      const submitBtn = document.getElementById('submitBtn');
+      const searchBtn = document.getElementById('searchBtn');
+      const dataSubmitBtn = document.getElementById('dataSubmitBtn');
       const tableContainer = document.getElementById('table-container');
       const dataTable = document.getElementById('data-table');
       const paginationContainer = document.getElementById('pagination-container');
+      let currentPage = 1;
+      const itemsPerPage = 25;
 
-      const searchInput = document.getElementById('search').value;
+      // Event listener for fetching data
+      submitBtn.addEventListener('click', function () {
+        fetchData(currentPage);
+      });
 
-      try {
-        const response = await fetch(`${urlInput}`);
-        const data = await response.json();
+      // Event listener for searching data
+      searchBtn.addEventListener('click', function () {
+        fetchData(currentPage);
+      });
 
-        dataTable.innerHTML = '';
+      // Event listener for submitting data
+      dataSubmitBtn.addEventListener('click', function () {
+        submitData();
+      });
 
-        // Filter data based on search input
-        const filteredData = data.filter(item => {
-          for (const key in item) {
-            if (item[key].toString().toLowerCase().includes(searchInput.toLowerCase())) {
-              return true;
-            }
-          }
-          return false;
-        });
-
-        const totalItems = filteredData.length;
-
-        const startIdx = (page - 1) * itemsPerPage;
-        const endIdx = startIdx + itemsPerPage;
-        const displayedData = filteredData.slice(startIdx, endIdx);
-
-        const headerRow = document.createElement('tr');
-        for (const key in displayedData[0]) {
-          if (displayedData[0].hasOwnProperty(key)) {
-            const headerCell = document.createElement('th');
-            headerCell.textContent = key;
-            headerRow.appendChild(headerCell);
-          }
-        }
-        dataTable.appendChild(headerRow);
-
-        displayedData.forEach(function(item) {
-          const dataRow = document.createElement('tr');
-          for (const key in item) {
-            if (item.hasOwnProperty(key)) {
-              const dataCell = document.createElement('td');
-              dataCell.textContent = item[key];
-              dataRow.appendChild(dataCell);
-            }
-          }
-          dataTable.appendChild(dataRow);
-        });
-
-        tableContainer.style display = 'block';
-
-        // Update pagination
-        paginationContainer.innerHTML = '';
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
-        if (page > 1) {
-          const prevButton = document.createElement('button');
-          prevButton.textContent = 'Previous';
-          prevButton.addEventListener('click', () => fetchData(page - 1));
-          paginationContainer.appendChild(prevButton);
-        }
-        if (totalItems > endIdx) {
-          const nextButton = document.createElement('button');
-          nextButton.textContent = 'Next';
-          nextButton.addEventListener('click', () => fetchData(page + 1));
-          paginationContainer.appendChild(nextButton);
-        }
-      } catch (error) {
-        console.error(error);
+      async function fetchData(page) {
+        const urlInput = document.getElementById('url').value;
+        // Rest of your fetchData function code for fetching and displaying data
       }
-    }
 
-    function searchData() {
-      fetchData(currentPage); // Re-fetch data with the current page to apply the search term
-    }
-    
-    function submitData() {
-      const formData = createFormData();
+      function searchData() {
+        fetchData(currentPage); // Re-fetch data with the current page to apply the search term
+      }
 
-      // Create an XMLHttpRequest object
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', 'praktikumM9_submitalt.php', true);
+      function submitData() {
+        const formData = createFormData();
 
-      // Define a callback function to handle the response
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          // Handle the response, if needed
-          console.log(xhr.responseText); // For testing
-          // Optionally, you can update the table here if you want to display the new data.
-        } else {
-          // Handle errors, if any
-          console.error('Error:', xhr.status, xhr.statusText);
-        }
-      };
+        // Create an XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'praktikumM9_submitalt.php', true);
 
-      // Send the form data
-      xhr.send(formData);
-    }
+        // Define a callback function to handle the response
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            // Handle the response, if needed
+            console.log(xhr.responseText); // For testing
+            // Optionally, you can update the table here if you want to display the new data.
+          } else {
+            // Handle errors, if any
+            console.error('Error:', xhr.status, xhr.statusText);
+          }
+        };
 
-    function createFormData() {
-      const id = document.getElementById('id').value;
-      const F_name = document.getElementById('F_name').value;
-      const L_name = document.getElementById('L_name').value;
-      const email = document.getElementById('email').value;
-      const email2 = document.getElementById('email2').value;
-      const profesi = document.getElementById('profesi').value;
+        // Send the form data
+        xhr.send(formData);
+      }
 
-      // Create a FormData object to send the form data via AJAX
-      const formData = new FormData();
-      formData.append('id', id);
-      formData.append('F_name', F_name);
-      formData.append('L_name', L_name);
-      formData.append('email', email);
-      formData.append('email2', email2);
-      formData.append('profesi', profesi);
+      function createFormData() {
+        const id = document.getElementById('id').value;
+        const F_name = document.getElementById('F_name').value;
+        const L_name = document.getElementById('L_name').value;
+        const email = document.getElementById('email').value;
+        const email2 = document.getElementById('email2').value;
+        const profesi = document.getElementById('profesi').value;
 
-      return formData;
-    }
+        // Create a FormData object to send the form data via AJAX
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('F_name', F_name);
+        formData.append('L_name', L_name);
+        formData.append('email', email);
+        formData.append('email2', email2);
+        formData.append('profesi', profesi);
+
+        return formData;
+      }
+    });
   </script>
 </body>
 </html>
