@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Praktikum M6 Aura</title>
   <style>
     body {
@@ -30,14 +30,7 @@
       color: #553b08;
     }
 
-    input[type="url"] {
-      width: 30%;
-      padding: 3px;
-      margin-bottom: 5px;
-      border: 2px solid #553b08;
-      border-radius: 12px;
-    }
-
+    input[type="url"],
     input[type="text"] {
       width: 30%;
       padding: 3px;
@@ -98,12 +91,32 @@
 </head>
 <body>
   <h2>Selamat Datang!</h2>
-  <p>Kamu bisa memasukkan URL yang kamu inginkan di kolom di bawah ini</p>
+  <p>Kamu bisa memasukkan data dan URL yang kamu inginkan di kolom di bawah ini</p>
   <form>
-    <label for="url">URL:</label><br>
-    <input type="url" id="url" name="url" value=""><br>
-    <label for="search">Search:</label><br>
-    <input type="text" id="search" name="search" value=""><br>
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id"><br>
+
+    <label for="f_name">F_Name:</label>
+    <input type="text" id="f_name" name="f_name"><br>
+
+    <label for="l_name">L_Name:</label>
+    <input type="text" id="l_name" name="l_name"><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br>
+
+    <label for="email2">Email2:</label>
+    <input type="email" id="email2" name="email2"><br>
+
+    <label for="profesi">Profesi:</label>
+    <input type="text" id="profesi" name="profesi"><br>
+
+    <label for="url">URL:</label>
+    <input type="url" id="url" name="url"><br>
+
+    <label for="search">Search:</label>
+    <input type="text" id="search" name="search"><br>
+
     <input type="button" value="Submit" id="submitBtn" onclick="fetchData(1)">
     <input type="button" value="Search" id="searchBtn" onclick="searchData()">
   </form>
@@ -119,6 +132,12 @@
     const itemsPerPage = 25;
 
     async function fetchData(page) {
+      const idInput = document.getElementById('id').value;
+      const f_nameInput = document.getElementById('f_name').value;
+      const l_nameInput = document.getElementById('l_name').value;
+      const emailInput = document.getElementById('email').value;
+      const email2Input = document.getElementById('email2').value;
+      const profesiInput = document.getElementById('profesi').value;
       const urlInput = document.getElementById('url').value;
       const tableContainer = document.getElementById('table-container');
       const dataTable = document.getElementById('data-table');
