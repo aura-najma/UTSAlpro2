@@ -30,14 +30,7 @@
       color: #553b08;
     }
 
-    input[type="url"] {
-      width: 30%;
-      padding: 3px;
-      margin-bottom: 5px;
-      border: 2px solid #553b08;
-      border-radius: 12px;
-    }
-
+    input[type="url"],
     input[type="text"] {
       width: 30%;
       padding: 3px;
@@ -100,9 +93,9 @@
   <h2>Selamat Datang!</h2>
   <p>Kamu bisa memasukkan URL yang kamu inginkan di kolom di bawah ini</p>
   <form>
-    <label for="url">URL:</label><br>
+    <label for="url">URL:</label>
     <input type="url" id="url" name="url" value=""><br>
-    <label for="search">Search:</label><br>
+    <label for="search">Search:</label>
     <input type="text" id="search" name="search" value=""><br>
     <input type="button" value="Submit" id="submitBtn" onclick="fetchData(1)">
     <input type="button" value="Search" id="searchBtn" onclick="searchData()">
@@ -121,8 +114,8 @@
     <input type="text" id="email2" name="email2" required><br>
     <label for="profesi">Profesi:</label>
     <input type="text" id="profesi" name="profesi" required><br>
-    <input type="submit" value="Kirim">
-</form>
+    <input type="button" value="Tambah Data" onclick="submitData()">
+  </form>
 
   <div id="table-container">
     <table id="data-table">
@@ -187,7 +180,7 @@
           dataTable.appendChild(dataRow);
         });
 
-        tableContainer.style.display = 'block';
+        tableContainer.style display = 'block';
 
         // Update pagination
         paginationContainer.innerHTML = '';
@@ -212,50 +205,49 @@
     function searchData() {
       fetchData(currentPage); // Re-fetch data with the current page to apply the search term
     }
-
     
-         function submitData() {
-        const formData = createFormData();
+    function submitData() {
+      const formData = createFormData();
 
-        // Create an XMLHttpRequest object
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'praktikumM9_submitalt.php', true);
+      // Create an XMLHttpRequest object
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'praktikumM9_submitalt.php', true);
 
-        // Define a callback function to handle the response
-        xhr.onload = function () {
-          if (xhr.status === 200) {
-            // Handle the response, if needed
-            console.log(xhr.responseText); // For testing
-            // Optionally, you can update the table here if you want to display the new data.
-          } else {
-            // Handle errors, if any
-            console.error('Error:', xhr.status, xhr.statusText);
-          }
-        };
+      // Define a callback function to handle the response
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Handle the response, if needed
+          console.log(xhr.responseText); // For testing
+          // Optionally, you can update the table here if you want to display the new data.
+        } else {
+          // Handle errors, if any
+          console.error('Error:', xhr.status, xhr.statusText);
+        }
+      };
 
-        // Send the form data
-        xhr.send(formData);
-      }
+      // Send the form data
+      xhr.send(formData);
+    }
 
-      function createFormData() {
-        const id = document.getElementById('id').value;
-        const F_name = document.getElementById('F_name').value;
-        const L_name = document.getElementById('L_name').value;
-        const email = document.getElementById('email').value;
-        const email2 = document.getElementById('email2').value;
-        const profesi = document.getElementById('profesi').value;
+    function createFormData() {
+      const id = document.getElementById('id').value;
+      const F_name = document.getElementById('F_name').value;
+      const L_name = document.getElementById('L_name').value;
+      const email = document.getElementById('email').value;
+      const email2 = document.getElementById('email2').value;
+      const profesi = document.getElementById('profesi').value;
 
-        // Create a FormData object to send the form data via AJAX
-        const formData = new FormData();
-        formData.append('id', id);
-        formData.append('F_name', F_name);
-        formData.append('L_name', L_name);
-        formData.append('email', email);
-        formData.append('email2', email2);
-        formData.append('profesi', profesi);
+      // Create a FormData object to send the form data via AJAX
+      const formData = new FormData();
+      formData.append('id', id);
+      formData.append('F_name', F_name);
+      formData.append('L_name', L_name);
+      formData.append('email', email);
+      formData.append('email2', email2);
+      formData.append('profesi', profesi);
 
-        return formData;
-      }
+      return formData;
+    }
   </script>
 </body>
 </html>
