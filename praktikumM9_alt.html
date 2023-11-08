@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Praktikum M6 Aura</title>
   <style>
     body {
@@ -22,10 +22,6 @@
     }
 
     form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto auto auto;
-      grid-gap: 10px;
       margin-top: 2px;
     }
 
@@ -34,9 +30,16 @@
       color: #553b08;
     }
 
-    input[type="url"],
+    input[type="url"] {
+      width: 30%;
+      padding: 3px;
+      margin-bottom: 5px;
+      border: 2px solid #553b08;
+      border-radius: 12px;
+    }
+
     input[type="text"] {
-      width: 100%;
+      width: 30%;
       padding: 3px;
       margin-bottom: 5px;
       border: 2px solid #553b08;
@@ -89,64 +92,50 @@
     }
 
     .pagination {
-      grid-column: 1 / span 2;
       margin-top: 10px;
     }
   </style>
 </head>
 <body>
   <h2>Selamat Datang!</h2>
-  <p>Kamu bisa memasukkan data dan URL yang kamu inginkan di kolom di bawah ini</p>
+  <p>Kamu bisa memasukkan URL yang kamu inginkan di kolom di bawah ini</p>
   <form>
-    <label for="url">URL:</label>
-    <input type="url" id="url" name="url" value="">
-
-    <label for="id">ID:</label>
-    <input type="text" id="id" name="id">
-    
-    <label for="f_name">F_Name:</label>
-    <input type="text" id="f_name" name="f_name">
-
-    <label for="l_name">L_Name:</label>
-    <input type="text" id="l_name" name="l_name">
-
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email">
-
-    <label for="email2">Email2:</label>
-    <input type="text" id="email2" name="email2">
-
-    <label for="profesi">Profesi:</label>
-    <input type="text" id="profesi" name="profesi">
-
-    <label for="search">Search:</label>
-    <input type="text" id="search" name="search">
-
+    <label for="url">URL:</label><br>
+    <input type="url" id="url" name="url" value=""><br>
+    <label for="search">Search:</label><br>
+    <input type="text" id="search" name="search" value=""><br>
     <input type="button" value="Submit" id="submitBtn" onclick="fetchData(1)">
     <input type="button" value="Search" id="searchBtn" onclick="searchData()">
   </form>
+
+  <form action="praktikumM9_submit.php" method="post">
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" required><br>
+    <label for="F_name">First Name:</label>
+    <input type="text" id="F_name" name="F_name" required><br>
+    <label for="L_name">Last Name:</label>
+    <input type="text" id="L_name" name="L_name" required><br>
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required><br>
+    <label for="email2">Email 2:</label>
+    <input type="text" id="email2" name="email2" required><br>
+    <label for="profesi">Profesi:</label>
+    <input type="text" id="profesi" name="profesi" required><br>
+    <input type="submit" value="Kirim">
+</form>
+
   <div id="table-container">
     <table id="data-table">
     </table>
     <div class="pagination" id="pagination-container">
     </div>
   </div>
-  
-  <!-- Tombol "Tambah Data" -->
-  <input type="button" value="Tambah Data" id="addDataBtn" onclick="addData()">
-  
+
   <script>
     let currentPage = 1;
     const itemsPerPage = 25;
 
     async function fetchData(page) {
-      const idInput = document.getElementById('id').value;
-      const f_nameInput = document.getElementById('f_name').value;
-      const l_nameInput = document.getElementById('l_name').value;
-      const emailInput = document.getElementById('email').value;
-      const email2Input = document.getElementById('email2').value;
-      const profesiInput = document.getElementById('profesi').value;
-      
       const urlInput = document.getElementById('url').value;
       const tableContainer = document.getElementById('table-container');
       const dataTable = document.getElementById('data-table');
@@ -155,26 +144,8 @@
       const searchInput = document.getElementById('search').value;
 
       try {
-        // Lakukan permintaan HTTP untuk mengirim data ke praktikumM9_input.php
-        const response = await fetch('praktikumM9_input.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: idInput,
-            f_name: f_nameInput,
-            l_name: l_nameInput,
-            email: emailInput,
-            email2: email2Input,
-            profesi: profesiInput,
-          }),
-        });
-        const result = await response.json();
-
-        // Lanjutkan dengan mengambil dan menampilkan data dari URL setelah menambahkan data
-        const urlResponse = await fetch(`${urlInput}`);
-        const data = await urlResponse.json();
+        const response = await fetch(`${urlInput}`);
+        const data = await response.json();
 
         dataTable.innerHTML = '';
 
@@ -240,11 +211,6 @@
 
     function searchData() {
       fetchData(currentPage); // Re-fetch data with the current page to apply the search term
-    }
-
-    // Fungsi untuk menambahkan data
-    function addData() {
-      fetchData(1); // Tambah data dan muat ulang halaman saat tombol "Tambah Data" ditekan
     }
   </script>
 </body>
