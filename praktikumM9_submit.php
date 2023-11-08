@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $file = 'datapribadi.csv';
     // Format data sesuai CSV
-    $data = "$id, $f_name, $l_name, $email, $email2, $profesi\n";
+    $data = "$id, $F_name, $L_name, $email, $email2, $profesi\n";
 
     // Menambahkan data ke file CSV
     file_put_contents($file, $data, FILE_APPEND | LOCK_EX);
