@@ -111,10 +111,10 @@
     <input type="text" id="l_name" name="l_name">
 
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email">
+    <input type="text" id="email" name="email">
 
     <label for="email2">Email2:</label>
-    <input type="email" id="email2" name="email2">
+    <input type="text" id="email2" name="email2">
 
     <label for="profesi">Profesi:</label>
     <input type="text" id="profesi" name="profesi">
@@ -131,7 +131,10 @@
     <div class="pagination" id="pagination-container">
     </div>
   </div>
-
+  
+  <!-- Tombol "Tambah Data" -->
+  <input type="button" value="Tambah Data" id="addDataBtn" onclick="addData()">
+  
   <script>
     let currentPage = 1;
     const itemsPerPage = 25;
@@ -218,6 +221,26 @@
 
     function searchData() {
       fetchData(currentPage); // Re-fetch data with the current page to apply the search term
+    }
+
+    // Fungsi untuk menambahkan data
+    function addData() {
+      const idInput = document.getElementById('id').value;
+      const f_nameInput = document.getElementById('f_name').value;
+      const l_nameInput = document.getElementById('l_name').value;
+      const emailInput = document.getElementById('email').value;
+      const email2Input = document.getElementById('email2').value;
+      const profesiInput = document.getElementById('profesi').value;
+      // Anda dapat melakukan sesuatu dengan data yang baru ditambahkan di sini
+      // Misalnya, kirim data ke server atau lakukan operasi lainnya
+      console.log('Data yang ditambahkan:', {
+        id: idInput,
+        f_name: f_nameInput,
+        l_name: l_nameInput,
+        email: emailInput,
+        email2: email2Input,
+        profesi: profesiInput,
+      });
     }
   </script>
 </body>
