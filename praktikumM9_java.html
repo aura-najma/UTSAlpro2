@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Praktikum M6 Aura</title>
+  <style>
+    /* Your CSS styles here */
+  </style>
+</head>
+<body>
+  <h2>Selamat Datang!</h2>
+  <p>Kamu bisa memasukkan URL yang kamu inginkan di kolom di bawah ini</p>
+  <form>
+    <label for="url">URL:</label><br>
+    <input type="url" id="url" name="url" value=""><br>
+    <label for="search">Search:</label><br>
+    <input type="text" id="search" name="search" value=""><br>
+    <input type="button" value="Submit" id="submitBtn" onclick="fetchData(1)">
+    <input type="button" value="Search" id="searchBtn" onclick="searchData()">
+  </form>
+
+  <form id="data-form">
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" required><br>
+    <label for="F_name">First Name:</label>
+    <input type="text" id="F_name" name="F_name" required><br>
+    <label for="L_name">Last Name:</label>
+    <input type="text" id="L_name" name="L_name" required><br>
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required><br>
+    <label for="email2">Email 2:</label>
+    <input type="text" id="email2" name="email2" required><br>
+    <label for="profesi">Profesi:</label>
+    <input type="text" id="profesi" name="profesi" required><br>
+    <input type="button" value="Kirim" id="dataSubmitBtn">
+  </form>
+
+  <div id="table-container">
+    <table id="data-table">
+    </table>
+    <div class="pagination" id="pagination-container">
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const submitBtn = document.getElementById('submitBtn');
+      const searchBtn = document.getElementById('searchBtn');
+      const dataSubmitBtn = document.getElementById('dataSubmitBtn');
+      const dataForm = document.getElementById('data-form');
+      const tableContainer = document.getElementById('table-container');
+      const dataTable = document.getElementById('data-table');
+      const paginationContainer = document.getElementById('pagination-container');
+      let currentPage = 1;
+      const itemsPerPage = 25;
+
+      // Event listener for fetching data
+      submitBtn.addEventListener('click', function () {
+        fetchData(currentPage);
+      });
+
+      // Event listener for searching data
+      searchBtn.addEventListener('click', function () {
+        fetchData(currentPage);
+      });
+
+      // Event listener for submitting data
+      dataSubmitBtn.addEventListener('click', function () {
+        submitData();
+      });
+
+      async function fetchData(page) {
+        const urlInput = document.getElementById('url').value;
+        // Rest of your fetchData function code for fetching and displaying data
+      }
+
+      function searchData() {
+        fetchData(currentPage); // Re-fetch data with the current page to apply the search term
+      }
+
+      function submitData() {
+        const id = document.getElementById('id').value;
+        const F_name = document.getElementById('F_name').value;
+        const L_name = document.getElementById('L_name').value;
+        const email = document.getElementById('email').value;
+        const email2 = document.getElementById('email2').value;
+        const profesi = document.getElementById('profesi').value;
+
+        // Create a FormData object to send the form data via AJAX
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('F_name', F_name);
+        formData.append('L_name', L_name);
+        formData.append('email', email);
+        formData.append('email2', email2);
+        formData.append('profesi', profesi);
+
+        // Create an XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'praktikumM9_submitalt.php', true);
+
+        // Define a callback function to handle the response
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            // Handle the response, if needed
+            console.log(xhr.responseText); // For testing
+          } else {
+            // Handle errors, if any
+            console.error('Error:', xhr.status, xhr.statusText);
+          }
+        };
+
+        // Send the form data
+        xhr.send(formData);
+      }
+    });
+  </script>
+</body>
+</html>
